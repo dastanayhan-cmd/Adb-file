@@ -61,6 +61,7 @@
             background-color: #383838;
             transition: background-color 0.2s ease;
         }
+        /* Standart Kapı Görünümü */
         .gate-number {
             font-size: 1.15em;
             font-weight: bold;
@@ -70,6 +71,21 @@
             border-radius: 4px;
             border-left: 4px solid #fca311;
         }
+        /* Sadece 239 İçin Özel Vurgu */
+        .highlight-239 {
+            background-color: #e74c3c !important;
+            border-left: 4px solid #c0392b !important;
+            box-shadow: 0 0 12px rgba(231, 76, 60, 0.6);
+            font-size: 1.25em;
+            padding: 6px 14px;
+        }
+        .row-239 {
+            background-color: rgba(231, 76, 60, 0.1) !important;
+        }
+        .row-239:hover {
+            background-color: rgba(231, 76, 60, 0.2) !important;
+        }
+        /* Henüz Belli Olmayan Kapılar */
         .gate-waiting {
             color: #888;
             font-style: italic;
@@ -153,7 +169,6 @@
     function renderTable(flights) {
         const allowedGates = ['237', '238', '239', '240', '241', '242'];
         
-        // Filtreleme mantığı değiştirildi: Hedef kapılar VEYA henüz kapısı belli olmayanlar
         let filteredFlights = flights.filter(flight => {
             const rawStatus = flight.flight_status;
             const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : 'Belli Değil';
@@ -162,7 +177,6 @@
             return isGateOk && ['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus);
         });
 
-        // Saate göre sıralama
         filteredFlights.sort((a, b) => {
             const timeA = new Date(a.departure.scheduled || 0).getTime();
             const timeB = new Date(b.departure.scheduled || 0).getTime();
@@ -207,10 +221,16 @@
                 const airlineName = (flight.airline && flight.airline.name) ? flight.airline.name : 'Bilinmiyor';
                 const flightNo = (flight.flight && flight.flight.iata) ? flight.flight.iata : '-';
                 
-                // Kapı bilgisi "Belli Değil" ise ekranda "Bekleniyor" yazacak
                 const rawGate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : 'Belli Değil';
+                
                 let gateDisplay = '';
-                if (rawGate === 'Belli Değil') {
+                let rowClass = ''; // Satır sınıfı
+
+                // KAPI 239 İÇİN ÖZEL KOŞUL
+                if (rawGate === '239') {
+                    gateDisplay = `<span class="gate-number highlight-239">➔ 239</span>`;
+                    rowClass = 'class="row-239"';
+                } else if (rawGate === 'Belli Değil') {
                     gateDisplay = '<span class="gate-waiting">Bekleniyor</span>';
                 } else {
                     gateDisplay = `<span class="gate-number">${rawGate}</span>`;
@@ -219,7 +239,7 @@
                 const statusHtml = statusTranslations[flight.flight_status] || flight.flight_status.toUpperCase();
 
                 html += `
-                    <tr>
+                    <tr ${rowClass}>
                         <td style="white-space: nowrap; color:#ddd;">${time}</td>
                         <td>${gateDisplay}</td>
                         <td style="color:#bbb;">${airlineName}</td>
