@@ -68,7 +68,12 @@
             background-color: #444;
             padding: 5px 12px;
             border-radius: 4px;
-            border-left: 4px solid #fca311; /* Kapıyı biraz daha belirginleştirmek için ufak bir çizgi */
+            border-left: 4px solid #fca311;
+        }
+        .gate-waiting {
+            color: #888;
+            font-style: italic;
+            font-size: 0.9em;
         }
         .status {
             font-weight: bold;
@@ -148,11 +153,13 @@
     function renderTable(flights) {
         const allowedGates = ['237', '238', '239', '240', '241', '242'];
         
-        // Filtreleme
+        // Filtreleme mantığı değiştirildi: Hedef kapılar VEYA henüz kapısı belli olmayanlar
         let filteredFlights = flights.filter(flight => {
             const rawStatus = flight.flight_status;
-            const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : '';
-            return allowedGates.includes(gate) && ['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus);
+            const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : 'Belli Değil';
+            
+            const isGateOk = allowedGates.includes(gate) || gate === 'Belli Değil';
+            return isGateOk && ['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus);
         });
 
         // Saate göre sıralama
@@ -162,7 +169,6 @@
             return timeA - timeB;
         });
 
-        // Tablo Sütun Başlıkları Güncellendi
         let html = `
             <table>
                 <thead>
@@ -179,7 +185,7 @@
         `;
 
         if (filteredFlights.length === 0) {
-            html += `<tr><td colspan="6" style="text-align:center; padding:30px; color:#888;">Belirtilen kapılarda şu an için planlanmış bir uçuş bulunmuyor.</td></tr>`;
+            html += `<tr><td colspan="6" style="text-align:center; padding:30px; color:#888;">Şu an için planlanmış bir uçuş bulunmuyor.</td></tr>`;
         } else {
             filteredFlights.forEach(flight => {
                 let time = '--:--';
@@ -200,14 +206,22 @@
 
                 const airlineName = (flight.airline && flight.airline.name) ? flight.airline.name : 'Bilinmiyor';
                 const flightNo = (flight.flight && flight.flight.iata) ? flight.flight.iata : '-';
-                const gate = flight.departure.gate;
+                
+                // Kapı bilgisi "Belli Değil" ise ekranda "Bekleniyor" yazacak
+                const rawGate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : 'Belli Değil';
+                let gateDisplay = '';
+                if (rawGate === 'Belli Değil') {
+                    gateDisplay = '<span class="gate-waiting">Bekleniyor</span>';
+                } else {
+                    gateDisplay = `<span class="gate-number">${rawGate}</span>`;
+                }
+
                 const statusHtml = statusTranslations[flight.flight_status] || flight.flight_status.toUpperCase();
 
-                // Sütun Verileri Güncellendi
                 html += `
                     <tr>
                         <td style="white-space: nowrap; color:#ddd;">${time}</td>
-                        <td><span class="gate-number">${gate}</span></td>
+                        <td>${gateDisplay}</td>
                         <td style="color:#bbb;">${airlineName}</td>
                         <td style="font-weight: 600; font-size: 1.05em; color:#fff;">${dest}</td>
                         <td style="color:#aaa;">${flightNo}</td>
