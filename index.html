@@ -28,7 +28,6 @@
             letter-spacing: 2px;
             font-size: 1.5em;
         }
-        /* Mobil uyum için tabloyu sarıcı (wrapper) içine alıyoruz */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
@@ -38,7 +37,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 15px;
-            min-width: 700px; /* Mobilde daralmak yerine kaydırma çubuğu çıkarır */
+            min-width: 700px; 
         }
         th {
             background-color: #333;
@@ -82,7 +81,6 @@
             margin-top: 15px;
         }
 
-        /* Ekran küçüldüğünde başlığı ve boşlukları ayarla */
         @media (max-width: 600px) {
             body { padding: 10px; }
             .board-container { padding: 10px; }
@@ -107,7 +105,6 @@
     const API_KEY = 'ce1d5a7e0fdf1ed4b76a7650207c58cd'; 
     const AIRPORT_IATA = 'ADB';
 
-    // Uçuş durumlarını Türkçe'ye çeviren sözlük
     const statusTranslations = {
         'scheduled': '<span style="color:#00e5ff;">Planlandı</span>',
         'active': '<span style="color:#00ff00;">Havada</span>',
@@ -122,17 +119,19 @@
     async function fetchFlights() {
         const timestamp = new Date().getTime();
         const targetUrl = `http://api.aviationstack.com/v1/flights?access_key=${API_KEY}&dep_iata=${AIRPORT_IATA}&_=${timestamp}`;
-        const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+        
+        // Önceki proxy çöktüğü için alternatif, daha hızlı çalışan bir proxy'e (CodeTabs) geçtik
+        const apiUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`;
 
         try {
             const response = await fetch(apiUrl);
+            
             if (!response.ok) throw new Error(`Sunucu Hatası: ${response.status}`);
 
-            const proxyData = await response.json();
-            if (!proxyData.contents) throw new Error("Veri kaynağına ulaşılamadı.");
-
-            const data = JSON.parse(proxyData.contents);
-            if (data.error) throw new Error(`API Hatası: ${data.error.info}`);
+            // Bu proxy veriyi direkt JSON olarak veriyor, dönüştürmeye gerek yok
+            const data = await response.json();
+            
+            if (data.error) throw new Error(`API Hatası: ${data.error.info || 'Bilinmeyen hata'}`);
 
             if (data && data.data) {
                 renderTable(data.data);
@@ -140,7 +139,8 @@
                 document.getElementById('flight-data').innerHTML = '<div class="loading">Şu an planlanan aktif uçuş bulunmuyor.</div>';
             }
         } catch (error) {
-            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#ff4444;"><b>Bağlantı Başarısız:</b> ${error.message}</div>`;
+            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#ff4444;"><b>Bağlantı Başarısız:</b> ${error.message} <br><br><small>Tarayıcınız veya internet sağlayıcınız bağlantıyı engelliyor olabilir. Sayfayı yenilemeyi deneyin.</small></div>`;
+            console.error(error);
         }
     }
 
@@ -166,15 +166,12 @@
         flights.forEach(flight => {
             const rawStatus = flight.flight_status;
             
-            // Havalimanı panosunda genelde Planlanan (scheduled), Havada (active) ve Geciken (delayed) uçuşlar gösterilir
             if (['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus)) {
                 activeFlightsCount++;
                 
-                // 1. SAAT KISMI (TÜRKİYE SAATİNE ÇEVİRME)
                 let time = '--:--';
                 if (flight.departure.scheduled) {
                     const dateObj = new Date(flight.departure.scheduled);
-                    // Saat bilgisini kesin olarak İstanbul saatine zorluyoruz
                     time = new Intl.DateTimeFormat('tr-TR', {
                         timeZone: 'Europe/Istanbul',
                         hour: '2-digit',
@@ -182,23 +179,16 @@
                     }).format(dateObj);
                 }
 
-                // 2. VARIŞ YERİ (Nereye gidiyor?)
-                // API havalimanı ismini gönderiyorsa onu, yoksa IATA kodunu al
                 const dest = (flight.arrival && flight.arrival.airport) 
                              ? flight.arrival.airport 
                              : ((flight.arrival && flight.arrival.iata) ? flight.arrival.iata.toUpperCase() : 'BİLİNMİYOR');
 
-                // 3. FİRMA BİLGİSİ (Hangi Havayolu?)
                 const airlineName = (flight.airline && flight.airline.name) ? flight.airline.name : 'Bilinmiyor';
-
-                // 4. DİĞER BİLGİLER
                 const flightNo = (flight.flight && flight.flight.iata) ? flight.flight.iata : '-';
                 const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : 'Belli Değil';
                 
-                // 5. DURUM ÇEVİRİSİ
                 const statusHtml = statusTranslations[rawStatus] || rawStatus.toUpperCase();
 
-                // 6. ÖZEL KAPI VURGUSU
                 const isTarget = targetGates.includes(gate);
                 const rowClass = isTarget ? 'class="highlight-gate"' : '';
                 const gateDisplay = isTarget ? `➔ KAPI ${gate}` : gate;
@@ -223,7 +213,6 @@
         html += '</tbody></table>';
         document.getElementById('flight-data').innerHTML = html;
         
-        // Son güncellenme saati (Yine Türkiye saati baz alınır)
         const now = new Date();
         const updateTime = new Intl.DateTimeFormat('tr-TR', {
             timeZone: 'Europe/Istanbul',
@@ -235,7 +224,7 @@
     }
 
     fetchFlights();
-    setInterval(fetchFlights, 300000); // 5 dakikada bir veri tazelenir
+    setInterval(fetchFlights, 300000); 
 </script>
 
 </body>
