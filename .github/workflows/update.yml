@@ -1,0 +1,36 @@
+name: Ucus Verilerini Guncelle
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Her 5 dakikada bir çalıştır
+  workflow_dispatch: # İstersen GitHub üzerinden manuel tetikleyebilmen için
+
+permissions:
+  contents: write
+
+jobs:
+  update-flights:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repoyu Klonla
+        uses: actions/checkout@v3
+
+      - name: Python Kurulumu
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Gerekli Kütüphaneleri Kur
+        run: pip install requests
+
+      - name: Veri Çekme Scriptini Çalıştır
+        run: python fetch_flights.py
+
+      - name: Yeni Veriyi GitHub'a Yükle
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add flights.json
+          git commit -m "Otomatik güncelleme: Uçuş verileri" || exit 0
+          git push
+          
