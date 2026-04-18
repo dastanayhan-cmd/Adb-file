@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İzmir (ADB) Giden Yolcu Ekranı</title>
+    <title>İzmir (ADB) İç Hatlar Giden Yolcu</title>
     <style>
         body {
-            background-color: #0a0a0a;
-            color: #ffffff;
+            background-color: #121212;
+            color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 15px;
@@ -15,18 +15,20 @@
         .board-container {
             max-width: 1000px;
             margin: 0 auto;
-            background-color: #1a1a1a;
-            border-radius: 10px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
         }
         h2 {
             text-align: center;
-            color: #00e5ff;
-            margin-bottom: 20px;
+            color: #fca311; /* Havalimanı panolarına uygun sıcak sarı/turuncu ton */
+            margin-bottom: 25px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 1.5em;
+            letter-spacing: 1.5px;
+            font-size: 1.6em;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
         }
         .table-responsive {
             width: 100%;
@@ -36,57 +38,61 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 15px;
+            font-size: 16px;
             min-width: 750px; 
         }
         th {
-            background-color: #333;
-            color: #aaa;
-            padding: 12px;
+            background-color: #2c2c2c;
+            color: #ffffff;
+            padding: 15px 12px;
             text-align: left;
-            border-bottom: 2px solid #555;
             text-transform: uppercase;
             white-space: nowrap;
+            letter-spacing: 1px;
         }
         td {
-            padding: 12px;
-            border-bottom: 1px solid #333;
+            padding: 14px 12px;
+            border-bottom: 1px solid #2a2a2a;
         }
-        tr:hover {
-            background-color: #2a2a2a;
+        /* Zebra stili ile okunabilirliği artırma */
+        tbody tr:nth-child(even) {
+            background-color: #242424;
         }
-        /* İstenen Kapılar İçin Vurgu */
-        .highlight-gate {
-            background-color: rgba(255, 0, 0, 0.15) !important;
-            color: #ff3333;
-            font-weight: 900;
-            font-size: 1.05em;
-            border-left: 5px solid #ff0000;
+        tbody tr:hover {
+            background-color: #383838;
+            transition: background-color 0.2s ease;
         }
-        .highlight-gate td {
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+        .gate-number {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #444;
+            padding: 4px 10px;
+            border-radius: 4px;
         }
         .status {
             font-weight: bold;
+            letter-spacing: 0.5px;
         }
         .loading {
             text-align: center;
-            padding: 20px;
-            color: #aaa;
-            font-style: italic;
+            padding: 30px;
+            color: #888;
+            font-size: 1.1em;
         }
         .last-update {
             text-align: right;
-            font-size: 12px;
-            color: #666;
-            margin-top: 15px;
+            font-size: 13px;
+            color: #777;
+            margin-top: 20px;
+            font-style: italic;
         }
 
         @media (max-width: 600px) {
             body { padding: 10px; }
-            .board-container { padding: 10px; }
-            h2 { font-size: 1.2em; }
-            td, th { padding: 10px 8px; }
+            .board-container { padding: 15px; }
+            h2 { font-size: 1.3em; }
+            td, th { padding: 12px 8px; font-size: 14px; }
         }
     </style>
 </head>
@@ -107,13 +113,13 @@
     const AIRPORT_IATA = 'ADB';
 
     const statusTranslations = {
-        'scheduled': '<span style="color:#00e5ff;">Planlandı</span>',
-        'active': '<span style="color:#00ff00;">Havada</span>',
-        'delayed': '<span style="color:#ffa500;">Gecikmeli</span>',
-        'cancelled': '<span style="color:#ff3333;">İptal Edildi</span>',
-        'landed': '<span style="color:#aaaaaa;">İndi</span>',
-        'diverted': '<span style="color:#ffa500;">Yönlendirildi</span>',
-        'incident': '<span style="color:#ff3333;">Acil Durum</span>',
+        'scheduled': '<span style="color:#4db8ff;">Planlandı</span>',
+        'active': '<span style="color:#2ecc71;">Havada</span>',
+        'delayed': '<span style="color:#f39c12;">Gecikmeli</span>',
+        'cancelled': '<span style="color:#e74c3c;">İptal Edildi</span>',
+        'landed': '<span style="color:#95a5a6;">İndi</span>',
+        'diverted': '<span style="color:#f39c12;">Yönlendirildi</span>',
+        'incident': '<span style="color:#e74c3c;">Acil Durum</span>',
         'unknown': 'Bilinmiyor'
     };
 
@@ -135,11 +141,28 @@
                 document.getElementById('flight-data').innerHTML = '<div class="loading">Şu an gösterilecek uçuş bulunmuyor.</div>';
             }
         } catch (error) {
-            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#ff4444;"><b>Bağlantı Başarısız:</b> ${error.message}</div>`;
+            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#e74c3c;">Bağlantı Başarısız. Veriler güncelleniyor, lütfen bekleyin...</div>`;
         }
     }
 
     function renderTable(flights) {
+        const allowedGates = ['237', '238', '239', '240', '241', '242'];
+        
+        // 1. ADIM: Sadece istediğimiz kapıları ve aktif uçuşları FİLTRELE
+        let filteredFlights = flights.filter(flight => {
+            const rawStatus = flight.flight_status;
+            const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : '';
+            return allowedGates.includes(gate) && ['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus);
+        });
+
+        // 2. ADIM: Uçuşları tarihe ve saate göre SIRALA (Eskiden Yeniye)
+        filteredFlights.sort((a, b) => {
+            const timeA = new Date(a.departure.scheduled || 0).getTime();
+            const timeB = new Date(b.departure.scheduled || 0).getTime();
+            return timeA - timeB;
+        });
+
+        // 3. ADIM: Tabloyu OLUŞTUR
         let html = `
             <table>
                 <thead>
@@ -155,28 +178,20 @@
                 <tbody>
         `;
 
-        // SADECE BU KAPILAR GÖSTERİLECEK
-        const allowedGates = ['237', '238', '239', '240', '241', '242'];
-        let activeFlightsCount = 0;
-
-        flights.forEach(flight => {
-            const rawStatus = flight.flight_status;
-            const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : '';
-            
-            // Filtreleme: Kapı numarası listede var mı ve uçuş aktif mi?
-            if (allowedGates.includes(gate) && ['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus)) {
-                activeFlightsCount++;
-                
+        if (filteredFlights.length === 0) {
+            html += `<tr><td colspan="6" style="text-align:center; padding:30px; color:#888;">Belirtilen kapılarda şu an için planlanmış bir uçuş bulunmuyor.</td></tr>`;
+        } else {
+            filteredFlights.forEach(flight => {
                 let time = '--:--';
                 if (flight.departure.scheduled) {
                     const dateObj = new Date(flight.departure.scheduled);
                     time = new Intl.DateTimeFormat('tr-TR', {
                         timeZone: 'Europe/Istanbul',
-                        day: 'numeric',
-                        month: 'long',
+                        day: '2-digit',
+                        month: 'short',
                         hour: '2-digit',
                         minute: '2-digit'
-                    }).format(dateObj);
+                    }).format(dateObj); // Örnek çıktı: "18 Nis 22:30"
                 }
 
                 const dest = (flight.arrival && flight.arrival.airport) 
@@ -185,23 +200,20 @@
 
                 const airlineName = (flight.airline && flight.airline.name) ? flight.airline.name : 'Bilinmiyor';
                 const flightNo = (flight.flight && flight.flight.iata) ? flight.flight.iata : '-';
-                const statusHtml = statusTranslations[rawStatus] || rawStatus.toUpperCase();
+                const gate = flight.departure.gate;
+                const statusHtml = statusTranslations[flight.flight_status] || flight.flight_status.toUpperCase();
 
                 html += `
-                    <tr class="highlight-gate">
-                        <td style="white-space: nowrap;">${time}</td>
-                        <td style="font-weight: 500;">${dest}</td>
-                        <td>${airlineName}</td>
-                        <td>${flightNo}</td>
-                        <td><strong>➔ KAPI ${gate}</strong></td>
+                    <tr>
+                        <td style="white-space: nowrap; color:#ddd;">${time}</td>
+                        <td style="font-weight: 600; font-size: 1.05em; color:#fff;">${dest}</td>
+                        <td style="color:#bbb;">${airlineName}</td>
+                        <td style="color:#aaa;">${flightNo}</td>
+                        <td><span class="gate-number">${gate}</span></td>
                         <td class="status">${statusHtml}</td>
                     </tr>
                 `;
-            }
-        });
-
-        if (activeFlightsCount === 0) {
-            html += `<tr><td colspan="6" style="text-align:center; padding:20px;">Belirtilen kapılarda şu an için planlanmış bir uçuş bulunmuyor.</td></tr>`;
+            });
         }
 
         html += '</tbody></table>';
@@ -213,7 +225,8 @@
             day: 'numeric',
             month: 'long',
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
+            second: '2-digit'
         }).format(now);
         
         document.getElementById('last-update-time').innerText = `Son Güncelleme: ${updateTime}`;
