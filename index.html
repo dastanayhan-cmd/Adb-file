@@ -63,7 +63,6 @@
             background-color: #333;
             transition: background-color 0.2s ease;
         }
-        /* Standart Kapı */
         .gate-number {
             font-size: 1.15em;
             font-weight: bold;
@@ -73,7 +72,6 @@
             border-radius: 4px;
             border-left: 4px solid #fca311;
         }
-        /* Sadece 239 Numaralı Kapıya Özel Neon Vurgu */
         .highlight-239 {
             background-color: #e74c3c !important;
             border-left: 4px solid #c0392b !important;
@@ -89,7 +87,6 @@
         .row-239:hover {
             background-color: rgba(231, 76, 60, 0.25) !important;
         }
-        /* Bekleyen / Kontuar Aşaması */
         .gate-waiting {
             color: #aaa;
             font-style: italic;
@@ -129,18 +126,16 @@
     <h2>✈️ İZMİR (ADB) İÇ HATLAR GİDEN YOLCU (CANLI)</h2>
     
     <div class="table-responsive">
-        <div id="flight-data"><div class="loading">Resmi TAV sunucusuna bağlanılıyor... Panolar eşitleniyor...</div></div>
+        <div id="flight-data"><div class="loading">Resmi TAV sunucusuna bağlanılıyor... Çift motorlu proxy devrede...</div></div>
     </div>
     
     <div id="last-update-time" class="last-update"></div>
 </div>
 
 <script>
-    // Aylar için Türkçe sözlük
     const months = {"01":"Oca", "02":"Şub", "03":"Mar", "04":"Nis", "05":"May", "06":"Haz", "07":"Tem", "08":"Ağu", "09":"Eyl", "10":"Eki", "11":"Kas", "12":"Ara"};
     const allowedGates = ['237', '238', '239', '240', '241', '242'];
 
-    // Orijinal TAV durumlarına göre havalimanı renkleri
     function getStatusHtml(status) {
         const s = status.toUpperCase();
         if (s.includes('KAPIYA')) return `<span style="color:#2ecc71;">${s}</span>`; 
@@ -152,51 +147,69 @@
         return `<span>${s}</span>`;
     }
 
+    // Proxy engellerine takılmamak için alternatifli veri çekme fonksiyonu
+    async function fetchHTML(url) {
+        let htmlContent = "";
+        
+        // 1. Motor: CodeTabs (Saf metin okuma)
+        try {
+            let res = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`);
+            if (res.ok) {
+                htmlContent = await res.text();
+                if (htmlContent.length > 5000 && !htmlContent.includes("Cloudflare")) return htmlContent;
+            }
+        } catch(e) { console.log("Motor 1 atlandı"); }
+        
+        // 2. Motor: CorsProxy.io (Alternatif güzergah)
+        try {
+            let res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
+            if (res.ok) {
+                htmlContent = await res.text();
+                if (htmlContent.length > 5000 && !htmlContent.includes("Cloudflare")) return htmlContent;
+            }
+        } catch(e) { console.log("Motor 2 atlandı"); }
+        
+        throw new Error("Tüm bağlantılar güvenlik duvarı tarafından reddedildi.");
+    }
+
     async function fetchFlights() {
-        // TAV'ın gönderdiğin orijinal canlı linkini çekiyoruz (AllOrigins Proxy ile engeli aşarak)
-        const targetUrl = `https://izmirairport.com/tr-TR/ucus-bilgileri/giden-ucuslar?_=${new Date().getTime()}`;
-        const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+        const targetUrl = `https://izmirairport.com/tr-TR/ucus-bilgileri/giden-ucuslar`;
 
         try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error("Ağ Hatası");
-            
-            const proxyData = await response.json();
-            if (!proxyData.contents) throw new Error("Veri okunamadı");
+            const htmlText = await fetchHTML(targetUrl);
 
-            // TAV'ın HTML sitesini arka planda sanki bir tarayıcıymış gibi çözümlüyoruz (Scraping)
             const parser = new DOMParser();
-            const doc = parser.parseFromString(proxyData.contents, 'text/html');
+            const doc = parser.parseFromString(htmlText, 'text/html');
             const rows = doc.querySelectorAll('table tbody tr');
             
             let flights = [];
 
-            // Satırları tek tek analiz et
             rows.forEach(tr => {
                 const tds = tr.querySelectorAll('td');
-                // Resmi TAV tablosunda genelde 8-9 sütun olur
                 if (tds.length >= 8) {
                     const clean = (el) => el.textContent.replace(/\s+/g, ' ').trim();
                     const flightNo = clean(tds[5]);
                     
-                    if (!flightNo || flightNo.toLowerCase().includes('uçuş')) return; // Başlık satırlarını atla
+                    if (!flightNo || flightNo.toLowerCase().includes('uçuş')) return;
 
                     flights.push({
                         date: clean(tds[0]),
-                        time: clean(tds[1]), // Planlanan Saat
+                        time: clean(tds[1]), 
                         airline: clean(tds[3]),
                         dest: clean(tds[4]),
                         flightNo: flightNo,
-                        gate: clean(tds[6]), // TAV bu sütuna Kontuar VEYA Kapı numarasını yazar
+                        gate: clean(tds[6]), 
                         status: clean(tds[7])
                     });
                 }
             });
 
+            if(flights.length === 0) throw new Error("Tablo boş geldi");
+            
             renderTable(flights);
 
         } catch (error) {
-            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#e74c3c;">Resmi FIDS ağına bağlanılamadı. Sistem 1 dakika içinde tekrar deneyecek...</div>`;
+            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#e74c3c;">Bağlantı kurulamadı: ${error.message} <br> Sistem 1 dakika içinde tekrar deneyecek...</div>`;
             console.error("Scraper Hatası:", error);
         }
     }
@@ -208,22 +221,16 @@
             const gateText = flight.gate.toUpperCase();
             const isTargetGate = allowedGates.some(g => gateText.includes(g));
             
-            // TAV kapı bilgisini "D59" (Sadece Kontuar) veya "35" (Kapı atanmış) şeklinde verebilir
-            // Kontuar harflerini atıp geriye saf numara kalıyor mu diye bakıyoruz
             const gateWithoutCheckin = gateText.replace(/[A-Z]\d+/g, '').trim();
             const hasAssignedOtherGate = /\d{2,3}/.test(gateWithoutCheckin); 
 
-            // Eğer başka bir kapıya ATANMAMIŞSA (yani kontuardaysa) VEYA bizim kapılardansa listeye ekle
             if (isTargetGate || !hasAssignedOtherGate) {
-                
-                // Kapısı henüz belli olmayan çok ileriki (5 saatten uzak) uçuşlarla listeyi şişirmemek için filtre
                 if (!isTargetGate) {
                     const parts = flight.date.split('.');
                     const times = flight.time.split(':');
                     if (parts.length === 3 && times.length === 2) {
                         const fTime = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T${times[0]}:${times[1]}:00+03:00`).getTime();
                         const now = new Date().getTime();
-                        // Geçmiş 1 saat ve Gelecek 4 Saat aralığı
                         if (fTime < now - 3600000 || fTime > now + 14400000) return; 
                     }
                 }
@@ -231,7 +238,6 @@
             }
         });
 
-        // TAV sitesi zaten zamana göre sıralı veriyor, sıralamayı bozmadan tabloyu çiziyoruz
         let html = `
             <table>
                 <thead>
@@ -252,14 +258,12 @@
         } else {
             filteredFlights.forEach(flight => {
                 
-                // Tarih Formatlama (Örn: 19 Nis 22:30)
                 let displayTime = flight.time;
                 if (flight.date) {
                     const p = flight.date.split('.');
                     if (p.length === 3) displayTime = `${p[0]} ${months[p[1]]} ${flight.time}`;
                 }
 
-                // 239 ve Diğer Kapıların Görsel Mantığı
                 let gateDisplay = '';
                 let rowClass = '';
                 const gateText = flight.gate.toUpperCase();
@@ -268,11 +272,9 @@
                     gateDisplay = `<span class="gate-number highlight-239">➔ KAPI 239</span>`;
                     rowClass = 'class="row-239"';
                 } else if (allowedGates.some(g => gateText.includes(g))) {
-                    // Bizim diğer kapılar
                     const matchedGate = allowedGates.find(g => gateText.includes(g));
                     gateDisplay = `<span class="gate-number">KAPI ${matchedGate}</span>`;
                 } else {
-                    // Kapı atanmamış ama Check-in kontuarı belli
                     if (gateText && gateText !== '---' && gateText !== '-') {
                         gateDisplay = `<span class="gate-waiting">Kontuar: ${gateText}</span>`;
                     } else {
@@ -307,10 +309,7 @@
         document.getElementById('last-update-time').innerText = `Son Güncelleme: TAV Canlı Sisteminden Saat ${updateTime} İtibarıyla Çekildi`;
     }
 
-    // İlk yükleme
     fetchFlights();
-    
-    // Her 60 saniyede bir (TAV sistemiyle senkronize olması için) yenile
     setInterval(fetchFlights, 60000); 
 </script>
 
