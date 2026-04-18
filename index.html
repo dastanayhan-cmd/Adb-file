@@ -5,82 +5,238 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzmir (ADB) Giden Yolcu Ekranı</title>
     <style>
-        body { background-color: #0a0a0a; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; }
-        .board-container { max-width: 900px; margin: 0 auto; background-color: #1a1a1a; border-radius: 10px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        h2 { text-align: center; color: #00e5ff; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
-        table { width: 100%; border-collapse: collapse; font-size: 16px; }
-        th { background-color: #333; color: #aaa; padding: 12px; text-align: left; border-bottom: 2px solid #555; text-transform: uppercase; }
-        td { padding: 12px; border-bottom: 1px solid #333; }
-        tr:hover { background-color: #2a2a2a; }
-        .highlight-gate { background-color: rgba(255, 0, 0, 0.15) !important; color: #ff3333; font-weight: 900; font-size: 1.1em; border-left: 5px solid #ff0000; }
-        .highlight-gate td { text-shadow: 0 0 5px rgba(255, 0, 0, 0.4); }
-        .status { color: #00ff00; font-weight: bold; }
-        .loading { text-align: center; padding: 20px; color: #aaa; font-style: italic; }
-        .last-update { text-align: right; font-size: 12px; color: #666; margin-top: 10px; }
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 15px;
+        }
+        .board-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h2 {
+            text-align: center;
+            color: #00e5ff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.5em;
+        }
+        /* Mobil uyum için tabloyu sarıcı (wrapper) içine alıyoruz */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+            min-width: 700px; /* Mobilde daralmak yerine kaydırma çubuğu çıkarır */
+        }
+        th {
+            background-color: #333;
+            color: #aaa;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #555;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #333;
+        }
+        tr:hover {
+            background-color: #2a2a2a;
+        }
+        .highlight-gate {
+            background-color: rgba(255, 0, 0, 0.15) !important;
+            color: #ff3333;
+            font-weight: 900;
+            font-size: 1.05em;
+            border-left: 5px solid #ff0000;
+        }
+        .highlight-gate td {
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+        }
+        .status {
+            font-weight: bold;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #aaa;
+            font-style: italic;
+        }
+        .last-update {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        /* Ekran küçüldüğünde başlığı ve boşlukları ayarla */
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .board-container { padding: 10px; }
+            h2 { font-size: 1.2em; }
+            td, th { padding: 10px 8px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="board-container">
     <h2>✈️ İZMİR (ADB) GİDEN YOLCU EKRANI</h2>
-    <div id="flight-data"><div class="loading">Uçuş verileri yükleniyor... Lütfen bekleyin.</div></div>
+    
+    <div class="table-responsive">
+        <div id="flight-data"><div class="loading">Uçuş verileri çekiliyor... Lütfen bekleyin.</div></div>
+    </div>
+    
     <div id="last-update-time" class="last-update"></div>
 </div>
 
 <script>
+    const API_KEY = 'ce1d5a7e0fdf1ed4b76a7650207c58cd'; 
+    const AIRPORT_IATA = 'ADB';
+
+    // Uçuş durumlarını Türkçe'ye çeviren sözlük
+    const statusTranslations = {
+        'scheduled': '<span style="color:#00e5ff;">Planlandı</span>',
+        'active': '<span style="color:#00ff00;">Havada</span>',
+        'delayed': '<span style="color:#ffa500;">Gecikmeli</span>',
+        'cancelled': '<span style="color:#ff3333;">İptal Edildi</span>',
+        'landed': '<span style="color:#aaaaaa;">İndi</span>',
+        'diverted': '<span style="color:#ffa500;">Yönlendirildi</span>',
+        'incident': '<span style="color:#ff3333;">Acil Durum</span>',
+        'unknown': 'Bilinmiyor'
+    };
+
     async function fetchFlights() {
+        const timestamp = new Date().getTime();
+        const targetUrl = `http://api.aviationstack.com/v1/flights?access_key=${API_KEY}&dep_iata=${AIRPORT_IATA}&_=${timestamp}`;
+        const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+
         try {
-            // Tarayıcının eski veriyi göstermemesi (cache) için sonuna anlık zaman damgası ekliyoruz
-            const response = await fetch('flights.json?v=' + new Date().getTime());
-            
-            if (!response.ok) throw new Error("Veri dosyası henüz oluşturulmadı.");
-            
-            const data = await response.json();
+            const response = await fetch(apiUrl);
+            if (!response.ok) throw new Error(`Sunucu Hatası: ${response.status}`);
+
+            const proxyData = await response.json();
+            if (!proxyData.contents) throw new Error("Veri kaynağına ulaşılamadı.");
+
+            const data = JSON.parse(proxyData.contents);
+            if (data.error) throw new Error(`API Hatası: ${data.error.info}`);
 
             if (data && data.data) {
                 renderTable(data.data);
             } else {
-                document.getElementById('flight-data').innerHTML = '<div class="loading">Şu an aktif uçuş bulunmuyor.</div>';
+                document.getElementById('flight-data').innerHTML = '<div class="loading">Şu an planlanan aktif uçuş bulunmuyor.</div>';
             }
         } catch (error) {
-            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#ff4444;">Arka plan verileri bekleniyor... Sistem birkaç dakika içinde aktif olacaktır.</div>`;
+            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#ff4444;"><b>Bağlantı Başarısız:</b> ${error.message}</div>`;
         }
     }
 
     function renderTable(flights) {
-        let html = `<table><thead><tr><th>Saat</th><th>Varış</th><th>Uçuş No</th><th>Kapı</th><th>Durum</th></tr></thead><tbody>`;
+        let html = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Saat</th>
+                        <th>Nereye</th>
+                        <th>Firma</th>
+                        <th>Uçuş No</th>
+                        <th>Kapı</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
         const targetGates = ['239', '240', '241', '242'];
         let activeFlightsCount = 0;
 
         flights.forEach(flight => {
-            const statusText = flight.flight_status;
-            if (statusText === 'scheduled' || statusText === 'active') {
+            const rawStatus = flight.flight_status;
+            
+            // Havalimanı panosunda genelde Planlanan (scheduled), Havada (active) ve Geciken (delayed) uçuşlar gösterilir
+            if (['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus)) {
                 activeFlightsCount++;
-                const time = flight.departure.scheduled ? flight.departure.scheduled.substring(11, 16) : '--:--';
-                const dest = (flight.arrival && flight.arrival.iata) ? flight.arrival.iata.toUpperCase() : 'BİLİNMİYOR';
+                
+                // 1. SAAT KISMI (TÜRKİYE SAATİNE ÇEVİRME)
+                let time = '--:--';
+                if (flight.departure.scheduled) {
+                    const dateObj = new Date(flight.departure.scheduled);
+                    // Saat bilgisini kesin olarak İstanbul saatine zorluyoruz
+                    time = new Intl.DateTimeFormat('tr-TR', {
+                        timeZone: 'Europe/Istanbul',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }).format(dateObj);
+                }
+
+                // 2. VARIŞ YERİ (Nereye gidiyor?)
+                // API havalimanı ismini gönderiyorsa onu, yoksa IATA kodunu al
+                const dest = (flight.arrival && flight.arrival.airport) 
+                             ? flight.arrival.airport 
+                             : ((flight.arrival && flight.arrival.iata) ? flight.arrival.iata.toUpperCase() : 'BİLİNMİYOR');
+
+                // 3. FİRMA BİLGİSİ (Hangi Havayolu?)
+                const airlineName = (flight.airline && flight.airline.name) ? flight.airline.name : 'Bilinmiyor';
+
+                // 4. DİĞER BİLGİLER
                 const flightNo = (flight.flight && flight.flight.iata) ? flight.flight.iata : '-';
                 const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : 'Belli Değil';
-                const status = statusText.toUpperCase();
+                
+                // 5. DURUM ÇEVİRİSİ
+                const statusHtml = statusTranslations[rawStatus] || rawStatus.toUpperCase();
 
+                // 6. ÖZEL KAPI VURGUSU
                 const isTarget = targetGates.includes(gate);
                 const rowClass = isTarget ? 'class="highlight-gate"' : '';
                 const gateDisplay = isTarget ? `➔ KAPI ${gate}` : gate;
 
-                html += `<tr ${rowClass}><td>${time}</td><td>${dest}</td><td>${flightNo}</td><td><strong>${gateDisplay}</strong></td><td class="status">${status}</td></tr>`;
+                html += `
+                    <tr ${rowClass}>
+                        <td>${time}</td>
+                        <td style="font-weight: 500;">${dest}</td>
+                        <td>${airlineName}</td>
+                        <td>${flightNo}</td>
+                        <td><strong>${gateDisplay}</strong></td>
+                        <td class="status">${statusHtml}</td>
+                    </tr>
+                `;
             }
         });
 
-        if (activeFlightsCount === 0) html += `<tr><td colspan="5" style="text-align:center; padding:20px;">Şu an için planlanan gidiş uçuşu bulunmuyor.</td></tr>`;
+        if (activeFlightsCount === 0) {
+            html += `<tr><td colspan="6" style="text-align:center; padding:20px;">Şu an için gösterilecek uçuş bulunmuyor.</td></tr>`;
+        }
+
         html += '</tbody></table>';
         document.getElementById('flight-data').innerHTML = html;
         
+        // Son güncellenme saati (Yine Türkiye saati baz alınır)
         const now = new Date();
-        document.getElementById('last-update-time').innerText = `Son Güncelleme: ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        const updateTime = new Intl.DateTimeFormat('tr-TR', {
+            timeZone: 'Europe/Istanbul',
+            hour: '2-digit',
+            minute: '2-digit'
+        }).format(now);
+        
+        document.getElementById('last-update-time').innerText = `Son Güncelleme: ${updateTime}`;
     }
 
     fetchFlights();
-    // HTML de her 30 saniyede bir JSON dosyasını kontrol etsin
-    setInterval(fetchFlights, 30000); 
+    setInterval(fetchFlights, 300000); // 5 dakikada bir veri tazelenir
 </script>
+
 </body>
 </html>
