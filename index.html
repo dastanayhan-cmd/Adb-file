@@ -22,7 +22,7 @@
         }
         h2 {
             text-align: center;
-            color: #fca311; /* Havalimanı panolarına uygun sıcak sarı/turuncu ton */
+            color: #fca311; 
             margin-bottom: 25px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -54,7 +54,6 @@
             padding: 14px 12px;
             border-bottom: 1px solid #2a2a2a;
         }
-        /* Zebra stili ile okunabilirliği artırma */
         tbody tr:nth-child(even) {
             background-color: #242424;
         }
@@ -63,12 +62,13 @@
             transition: background-color 0.2s ease;
         }
         .gate-number {
-            font-size: 1.1em;
+            font-size: 1.15em;
             font-weight: bold;
             color: #ffffff;
             background-color: #444;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 4px;
+            border-left: 4px solid #fca311; /* Kapıyı biraz daha belirginleştirmek için ufak bir çizgi */
         }
         .status {
             font-weight: bold;
@@ -148,30 +148,30 @@
     function renderTable(flights) {
         const allowedGates = ['237', '238', '239', '240', '241', '242'];
         
-        // 1. ADIM: Sadece istediğimiz kapıları ve aktif uçuşları FİLTRELE
+        // Filtreleme
         let filteredFlights = flights.filter(flight => {
             const rawStatus = flight.flight_status;
             const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : '';
             return allowedGates.includes(gate) && ['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus);
         });
 
-        // 2. ADIM: Uçuşları tarihe ve saate göre SIRALA (Eskiden Yeniye)
+        // Saate göre sıralama
         filteredFlights.sort((a, b) => {
             const timeA = new Date(a.departure.scheduled || 0).getTime();
             const timeB = new Date(b.departure.scheduled || 0).getTime();
             return timeA - timeB;
         });
 
-        // 3. ADIM: Tabloyu OLUŞTUR
+        // Tablo Sütun Başlıkları Güncellendi
         let html = `
             <table>
                 <thead>
                     <tr>
                         <th>Tarih & Saat</th>
-                        <th>Nereye</th>
-                        <th>Firma</th>
-                        <th>Uçuş No</th>
                         <th>Kapı</th>
+                        <th>Firma</th>
+                        <th>Nereye</th>
+                        <th>Uçuş No</th>
                         <th>Durum</th>
                     </tr>
                 </thead>
@@ -191,7 +191,7 @@
                         month: 'short',
                         hour: '2-digit',
                         minute: '2-digit'
-                    }).format(dateObj); // Örnek çıktı: "18 Nis 22:30"
+                    }).format(dateObj); 
                 }
 
                 const dest = (flight.arrival && flight.arrival.airport) 
@@ -203,13 +203,14 @@
                 const gate = flight.departure.gate;
                 const statusHtml = statusTranslations[flight.flight_status] || flight.flight_status.toUpperCase();
 
+                // Sütun Verileri Güncellendi
                 html += `
                     <tr>
                         <td style="white-space: nowrap; color:#ddd;">${time}</td>
-                        <td style="font-weight: 600; font-size: 1.05em; color:#fff;">${dest}</td>
-                        <td style="color:#bbb;">${airlineName}</td>
-                        <td style="color:#aaa;">${flightNo}</td>
                         <td><span class="gate-number">${gate}</span></td>
+                        <td style="color:#bbb;">${airlineName}</td>
+                        <td style="font-weight: 600; font-size: 1.05em; color:#fff;">${dest}</td>
+                        <td style="color:#aaa;">${flightNo}</td>
                         <td class="status">${statusHtml}</td>
                     </tr>
                 `;
