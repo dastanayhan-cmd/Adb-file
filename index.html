@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İzmir (ADB) Giden Yolcu Ekranı</title>
+    <style>
+        body { background-color: #0a0a0a; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; }
+        .board-container { max-width: 900px; margin: 0 auto; background-color: #1a1a1a; border-radius: 10px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h2 { text-align: center; color: #00e5ff; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        table { width: 100%; border-collapse: collapse; font-size: 16px; }
+        th { background-color: #333; color: #aaa; padding: 12px; text-align: left; border-bottom: 2px solid #555; text-transform: uppercase; }
+        td { padding: 12px; border-bottom: 1px solid #333; }
+        tr:hover { background-color: #2a2a2a; }
+        .highlight-gate { background-color: rgba(255, 0, 0, 0.15) !important; color: #ff3333; font-weight: 900; font-size: 1.1em; border-left: 5px solid #ff0000; }
+        .highlight-gate td { text-shadow: 0 0 5px rgba(255, 0, 0, 0.4); }
+        .status { color: #00ff00; font-weight: bold; }
+        .loading { text-align: center; padding: 20px; color: #aaa; font-style: italic; }
+        .last-update { text-align: right; font-size: 12px; color: #666; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="board-container">
+    <h2>✈️ İZMİR (ADB) GİDEN YOLCU EKRANI</h2>
+    <div id="flight-data"><div class="loading">Uçuş verileri yükleniyor... Lütfen bekleyin.</div></div>
+    <div id="last-update-time" class="last-update"></div>
+</div>
+
+<script>
+    async function fetchFlights() {
+        try {
+            // Tarayıcının eski veriyi göstermemesi (cache) için sonuna anlık zaman damgası ekliyoruz
+            const response = await fetch('flights.json?v=' + new Date().getTime());
+            
+            if (!response.ok) throw new Error("Veri dosyası henüz oluşturulmadı.");
+            
+            const data = await response.json();
+
+            if (data && data.data) {
+                renderTable(data.data);
+            } else {
+                document.getElementById('flight-data').innerHTML = '<div class="loading">Şu an aktif uçuş bulunmuyor.</div>';
+            }
+        } catch (error) {
+            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#ff4444;">Arka plan verileri bekleniyor... Sistem birkaç dakika içinde aktif olacaktır.</div>`;
+        }
+    }
+
+    function renderTable(flights) {
+        let html = `<table><thead><tr><th>Saat</th><th>Varış</th><th>Uçuş No</th><th>Kapı</th><th>Durum</th></tr></thead><tbody>`;
+        const targetGates = ['239', '240', '241', '242'];
+        let activeFlightsCount = 0;
+
+        flights.forEach(flight => {
+            const statusText = flight.flight_status;
+            if (statusText === 'scheduled' || statusText === 'active') {
+                activeFlightsCount++;
+                const time = flight.departure.scheduled ? flight.departure.scheduled.substring(11, 16) : '--:--';
+                const dest = (flight.arrival && flight.arrival.iata) ? flight.arrival.iata.toUpperCase() : 'BİLİNMİYOR';
+                const flightNo = (flight.flight && flight.flight.iata) ? flight.flight.iata : '-';
+                const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : 'Belli Değil';
+                const status = statusText.toUpperCase();
+
+                const isTarget = targetGates.includes(gate);
+                const rowClass = isTarget ? 'class="highlight-gate"' : '';
+                const gateDisplay = isTarget ? `➔ KAPI ${gate}` : gate;
+
+                html += `<tr ${rowClass}><td>${time}</td><td>${dest}</td><td>${flightNo}</td><td><strong>${gateDisplay}</strong></td><td class="status">${status}</td></tr>`;
+            }
+        });
+
+        if (activeFlightsCount === 0) html += `<tr><td colspan="5" style="text-align:center; padding:20px;">Şu an için planlanan gidiş uçuşu bulunmuyor.</td></tr>`;
+        html += '</tbody></table>';
+        document.getElementById('flight-data').innerHTML = html;
+        
+        const now = new Date();
+        document.getElementById('last-update-time').innerText = `Son Güncelleme: ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    }
+
+    fetchFlights();
+    // HTML de her 30 saniyede bir JSON dosyasını kontrol etsin
+    setInterval(fetchFlights, 30000); 
+</script>
+</body>
+</html>
