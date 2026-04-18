@@ -37,7 +37,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 15px;
-            min-width: 700px; 
+            min-width: 750px; 
         }
         th {
             background-color: #333;
@@ -55,6 +55,7 @@
         tr:hover {
             background-color: #2a2a2a;
         }
+        /* İstenen Kapılar İçin Vurgu */
         .highlight-gate {
             background-color: rgba(255, 0, 0, 0.15) !important;
             color: #ff3333;
@@ -92,7 +93,7 @@
 <body>
 
 <div class="board-container">
-    <h2>✈️ İZMİR (ADB) GİDEN YOLCU EKRANI</h2>
+    <h2>✈️ İZMİR (ADB) İÇ HATLAR GİDEN YOLCU</h2>
     
     <div class="table-responsive">
         <div id="flight-data"><div class="loading">Uçuş verileri çekiliyor... Lütfen bekleyin.</div></div>
@@ -119,28 +120,22 @@
     async function fetchFlights() {
         const timestamp = new Date().getTime();
         const targetUrl = `http://api.aviationstack.com/v1/flights?access_key=${API_KEY}&dep_iata=${AIRPORT_IATA}&_=${timestamp}`;
-        
-        // Önceki proxy çöktüğü için alternatif, daha hızlı çalışan bir proxy'e (CodeTabs) geçtik
         const apiUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`;
 
         try {
             const response = await fetch(apiUrl);
-            
             if (!response.ok) throw new Error(`Sunucu Hatası: ${response.status}`);
 
-            // Bu proxy veriyi direkt JSON olarak veriyor, dönüştürmeye gerek yok
             const data = await response.json();
-            
             if (data.error) throw new Error(`API Hatası: ${data.error.info || 'Bilinmeyen hata'}`);
 
             if (data && data.data) {
                 renderTable(data.data);
             } else {
-                document.getElementById('flight-data').innerHTML = '<div class="loading">Şu an planlanan aktif uçuş bulunmuyor.</div>';
+                document.getElementById('flight-data').innerHTML = '<div class="loading">Şu an gösterilecek uçuş bulunmuyor.</div>';
             }
         } catch (error) {
-            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#ff4444;"><b>Bağlantı Başarısız:</b> ${error.message} <br><br><small>Tarayıcınız veya internet sağlayıcınız bağlantıyı engelliyor olabilir. Sayfayı yenilemeyi deneyin.</small></div>`;
-            console.error(error);
+            document.getElementById('flight-data').innerHTML = `<div class="loading" style="color:#ff4444;"><b>Bağlantı Başarısız:</b> ${error.message}</div>`;
         }
     }
 
@@ -149,7 +144,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Saat</th>
+                        <th>Tarih & Saat</th>
                         <th>Nereye</th>
                         <th>Firma</th>
                         <th>Uçuş No</th>
@@ -160,13 +155,16 @@
                 <tbody>
         `;
 
-        const targetGates = ['239', '240', '241', '242'];
+        // SADECE BU KAPILAR GÖSTERİLECEK
+        const allowedGates = ['237', '238', '239', '240', '241', '242'];
         let activeFlightsCount = 0;
 
         flights.forEach(flight => {
             const rawStatus = flight.flight_status;
+            const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : '';
             
-            if (['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus)) {
+            // Filtreleme: Kapı numarası listede var mı ve uçuş aktif mi?
+            if (allowedGates.includes(gate) && ['scheduled', 'active', 'delayed', 'cancelled'].includes(rawStatus)) {
                 activeFlightsCount++;
                 
                 let time = '--:--';
@@ -174,6 +172,8 @@
                     const dateObj = new Date(flight.departure.scheduled);
                     time = new Intl.DateTimeFormat('tr-TR', {
                         timeZone: 'Europe/Istanbul',
+                        day: 'numeric',
+                        month: 'long',
                         hour: '2-digit',
                         minute: '2-digit'
                     }).format(dateObj);
@@ -185,21 +185,15 @@
 
                 const airlineName = (flight.airline && flight.airline.name) ? flight.airline.name : 'Bilinmiyor';
                 const flightNo = (flight.flight && flight.flight.iata) ? flight.flight.iata : '-';
-                const gate = (flight.departure && flight.departure.gate) ? String(flight.departure.gate) : 'Belli Değil';
-                
                 const statusHtml = statusTranslations[rawStatus] || rawStatus.toUpperCase();
 
-                const isTarget = targetGates.includes(gate);
-                const rowClass = isTarget ? 'class="highlight-gate"' : '';
-                const gateDisplay = isTarget ? `➔ KAPI ${gate}` : gate;
-
                 html += `
-                    <tr ${rowClass}>
-                        <td>${time}</td>
+                    <tr class="highlight-gate">
+                        <td style="white-space: nowrap;">${time}</td>
                         <td style="font-weight: 500;">${dest}</td>
                         <td>${airlineName}</td>
                         <td>${flightNo}</td>
-                        <td><strong>${gateDisplay}</strong></td>
+                        <td><strong>➔ KAPI ${gate}</strong></td>
                         <td class="status">${statusHtml}</td>
                     </tr>
                 `;
@@ -207,7 +201,7 @@
         });
 
         if (activeFlightsCount === 0) {
-            html += `<tr><td colspan="6" style="text-align:center; padding:20px;">Şu an için gösterilecek uçuş bulunmuyor.</td></tr>`;
+            html += `<tr><td colspan="6" style="text-align:center; padding:20px;">Belirtilen kapılarda şu an için planlanmış bir uçuş bulunmuyor.</td></tr>`;
         }
 
         html += '</tbody></table>';
@@ -216,6 +210,8 @@
         const now = new Date();
         const updateTime = new Intl.DateTimeFormat('tr-TR', {
             timeZone: 'Europe/Istanbul',
+            day: 'numeric',
+            month: 'long',
             hour: '2-digit',
             minute: '2-digit'
         }).format(now);
