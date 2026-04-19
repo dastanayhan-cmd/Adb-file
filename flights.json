@@ -15,7 +15,7 @@
                 "iata": "ADB",
                 "icao": "LTBJ",
                 "terminal": "D",
-                "gate": "D59",
+                "gate": "235",
                 "delay": null,
                 "scheduled": "2026-04-20T01:15:00+00:00",
                 "estimated": "2026-04-20T01:15:00+00:00",
@@ -124,7 +124,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T22:44:00+00:00",
-                "delay": null,
+                "delay": 13,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -226,7 +226,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-20T00:35:00+00:00",
-                "delay": null,
+                "delay": 13,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -243,7 +243,12 @@
                 "icao": "PGT2209",
                 "codeshared": null
             },
-            "aircraft": null,
+            "aircraft": {
+                "registration": null,
+                "iata": null,
+                "icao": null,
+                "icao24": "4BC888"
+            },
             "live": null
         },
         {
@@ -388,7 +393,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-20T03:05:00+00:00",
-                "delay": null,
+                "delay": 13,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -439,7 +444,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-20T00:25:00+00:00",
-                "delay": null,
+                "delay": 13,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -456,7 +461,12 @@
                 "icao": "PGT3012",
                 "codeshared": null
             },
-            "aircraft": null,
+            "aircraft": {
+                "registration": null,
+                "iata": null,
+                "icao": null,
+                "icao24": "4BB86A"
+            },
             "live": null
         },
         {
@@ -485,7 +495,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-20T00:20:00+00:00",
-                "delay": null,
+                "delay": 55,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -1283,11 +1293,11 @@
                 "timezone": "Europe/Berlin",
                 "iata": "HAJ",
                 "icao": "EDDV",
-                "terminal": "CARG",
+                "terminal": null,
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T23:40:00+00:00",
-                "delay": null,
+                "delay": 10,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -1338,7 +1348,7 @@
                 "gate": null,
                 "baggage": "22",
                 "scheduled": "2026-04-19T22:30:00+00:00",
-                "delay": null,
+                "delay": 10,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -1359,13 +1369,13 @@
                 "registration": null,
                 "iata": null,
                 "icao": null,
-                "icao24": "4BAB56"
+                "icao24": "4BB028"
             },
             "live": null
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1416,14 +1426,14 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
                 "iata": "ADB",
                 "icao": "LTBJ",
                 "terminal": "I",
-                "gate": "103",
+                "gate": "14",
                 "delay": null,
                 "scheduled": "2026-04-19T21:05:00+00:00",
                 "estimated": "2026-04-19T21:05:00+00:00",
@@ -1467,7 +1477,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1491,7 +1501,7 @@
                 "gate": null,
                 "baggage": "24",
                 "scheduled": "2026-04-19T22:00:00+00:00",
-                "delay": null,
+                "delay": 13,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -1518,7 +1528,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1569,7 +1579,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1593,7 +1603,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T22:05:00+00:00",
-                "delay": null,
+                "delay": 20,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -1620,7 +1630,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1671,7 +1681,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1695,7 +1705,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T22:15:00+00:00",
-                "delay": null,
+                "delay": 15,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -1722,7 +1732,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1746,7 +1756,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-20T00:55:00+00:00",
-                "delay": null,
+                "delay": 10,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -1824,7 +1834,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1844,11 +1854,11 @@
                 "timezone": "Europe/Istanbul",
                 "iata": "MQM",
                 "icao": "LTCR",
-                "terminal": "I",
+                "terminal": null,
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T22:25:00+00:00",
-                "delay": null,
+                "delay": 25,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -1926,7 +1936,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1950,7 +1960,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T21:01:00+00:00",
-                "delay": null,
+                "delay": 10,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -1983,9 +1993,9 @@
                 "delay": null,
                 "scheduled": "2026-04-19T19:55:00+00:00",
                 "estimated": "2026-04-19T19:55:00+00:00",
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "actual": "2026-04-19T19:53:00+00:00",
+                "estimated_runway": "2026-04-19T19:53:00+00:00",
+                "actual_runway": "2026-04-19T19:53:00+00:00"
             },
             "arrival": {
                 "airport": "Istanbul Airport",
@@ -1994,10 +2004,10 @@
                 "icao": "LTFM",
                 "terminal": null,
                 "gate": null,
-                "baggage": null,
+                "baggage": "2A",
                 "scheduled": "2026-04-19T21:15:00+00:00",
-                "delay": 10,
-                "estimated": null,
+                "delay": null,
+                "estimated": "2026-04-19T20:40:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -2034,9 +2044,9 @@
                 "delay": null,
                 "scheduled": "2026-04-19T19:55:00+00:00",
                 "estimated": "2026-04-19T19:55:00+00:00",
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "actual": "2026-04-19T19:53:00+00:00",
+                "estimated_runway": "2026-04-19T19:53:00+00:00",
+                "actual_runway": "2026-04-19T19:53:00+00:00"
             },
             "arrival": {
                 "airport": "Istanbul Airport",
@@ -2045,10 +2055,10 @@
                 "icao": "LTFM",
                 "terminal": null,
                 "gate": null,
-                "baggage": null,
+                "baggage": "2A",
                 "scheduled": "2026-04-19T21:15:00+00:00",
-                "delay": 10,
-                "estimated": null,
+                "delay": null,
+                "estimated": "2026-04-19T20:40:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -2081,7 +2091,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -2089,12 +2099,12 @@
                 "icao": "LTBJ",
                 "terminal": "D",
                 "gate": "238",
-                "delay": null,
+                "delay": 25,
                 "scheduled": "2026-04-19T19:30:00+00:00",
                 "estimated": "2026-04-19T19:30:00+00:00",
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "actual": "2026-04-19T20:02:00+00:00",
+                "estimated_runway": "2026-04-19T20:02:00+00:00",
+                "actual_runway": "2026-04-19T20:02:00+00:00"
             },
             "arrival": {
                 "airport": "Elazig",
@@ -2105,8 +2115,8 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T21:15:00+00:00",
-                "delay": null,
-                "estimated": null,
+                "delay": 32,
+                "estimated": "2026-04-19T21:40:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -2132,7 +2142,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -2156,7 +2166,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T20:40:00+00:00",
-                "delay": null,
+                "delay": 55,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -2173,12 +2183,17 @@
                 "icao": "PGT1866",
                 "codeshared": null
             },
-            "aircraft": null,
+            "aircraft": {
+                "registration": null,
+                "iata": null,
+                "icao": null,
+                "icao24": "4BB84D"
+            },
             "live": null
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "landed",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -2189,9 +2204,9 @@
                 "delay": null,
                 "scheduled": "2026-04-19T19:15:00+00:00",
                 "estimated": "2026-04-19T19:15:00+00:00",
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "actual": "2026-04-19T19:25:00+00:00",
+                "estimated_runway": "2026-04-19T19:25:00+00:00",
+                "actual_runway": "2026-04-19T19:25:00+00:00"
             },
             "arrival": {
                 "airport": "Athens International Airport \"Eleftherios Venizelos\"",
@@ -2203,10 +2218,10 @@
                 "baggage": "4",
                 "scheduled": "2026-04-19T20:15:00+00:00",
                 "delay": null,
-                "estimated": null,
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "estimated": "2026-04-19T20:02:00+00:00",
+                "actual": "2026-04-19T20:01:00+00:00",
+                "estimated_runway": "2026-04-19T20:01:00+00:00",
+                "actual_runway": "2026-04-19T20:01:00+00:00"
             },
             "airline": {
                 "name": "Aegean Airlines",
@@ -2220,25 +2235,16 @@
                 "codeshared": null
             },
             "aircraft": {
-                "registration": "SX-DVV",
-                "iata": "A320",
-                "icao": "A320",
+                "registration": null,
+                "iata": null,
+                "icao": null,
                 "icao24": "4692D6"
             },
-            "live": {
-                "updated": "2026-04-19T16:30:04+00:00",
-                "latitude": 38.3632,
-                "longitude": 26.9365,
-                "altitude": 2880.36,
-                "direction": 268,
-                "speed_horizontal": 551.896,
-                "speed_vertical": 0,
-                "is_ground": false
-            }
+            "live": null
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "landed",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -2249,9 +2255,9 @@
                 "delay": null,
                 "scheduled": "2026-04-19T19:15:00+00:00",
                 "estimated": "2026-04-19T19:15:00+00:00",
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "actual": "2026-04-19T19:25:00+00:00",
+                "estimated_runway": "2026-04-19T19:25:00+00:00",
+                "actual_runway": "2026-04-19T19:25:00+00:00"
             },
             "arrival": {
                 "airport": "Athens International Airport \"Eleftherios Venizelos\"",
@@ -2263,10 +2269,10 @@
                 "baggage": "4",
                 "scheduled": "2026-04-19T20:15:00+00:00",
                 "delay": null,
-                "estimated": null,
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "estimated": "2026-04-19T20:02:00+00:00",
+                "actual": "2026-04-19T20:01:00+00:00",
+                "estimated_runway": "2026-04-19T20:01:00+00:00",
+                "actual_runway": "2026-04-19T20:01:00+00:00"
             },
             "airline": {
                 "name": "Turkish Airlines",
@@ -2372,7 +2378,7 @@
                 "baggage": "1B",
                 "scheduled": "2026-04-19T20:15:00+00:00",
                 "delay": 4,
-                "estimated": "2026-04-19T19:49:00+00:00",
+                "estimated": "2026-04-19T19:46:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -2389,25 +2395,16 @@
                 "codeshared": null
             },
             "aircraft": {
-                "registration": "TC-JPN",
-                "iata": "A320",
-                "icao": "A320",
+                "registration": null,
+                "iata": null,
+                "icao": null,
                 "icao24": "4BAA0E"
             },
-            "live": {
-                "updated": "2026-04-19T16:30:02+00:00",
-                "latitude": 40.9494,
-                "longitude": 27.4662,
-                "altitude": 3810,
-                "direction": 93,
-                "speed_horizontal": 548.192,
-                "speed_vertical": 0,
-                "is_ground": false
-            }
+            "live": null
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -2415,12 +2412,12 @@
                 "icao": "LTBJ",
                 "terminal": "D",
                 "gate": "D59",
-                "delay": null,
+                "delay": 20,
                 "scheduled": "2026-04-19T18:40:00+00:00",
                 "estimated": "2026-04-19T18:40:00+00:00",
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "actual": "2026-04-19T19:24:00+00:00",
+                "estimated_runway": "2026-04-19T19:24:00+00:00",
+                "actual_runway": "2026-04-19T19:24:00+00:00"
             },
             "arrival": {
                 "airport": "Sabiha Gokcen",
@@ -2431,8 +2428,8 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T19:50:00+00:00",
-                "delay": null,
-                "estimated": null,
+                "delay": 44,
+                "estimated": "2026-04-19T20:10:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -2449,21 +2446,12 @@
                 "codeshared": null
             },
             "aircraft": {
-                "registration": "TC-JGS",
-                "iata": "B738",
-                "icao": "B738",
+                "registration": null,
+                "iata": null,
+                "icao": null,
                 "icao24": "4BA8F3"
             },
-            "live": {
-                "updated": "2026-04-19T16:30:03+00:00",
-                "latitude": 38.6694,
-                "longitude": 27.1567,
-                "altitude": 4229.1,
-                "direction": 3,
-                "speed_horizontal": 594.492,
-                "speed_vertical": 0,
-                "is_ground": false
-            }
+            "live": null
         },
         {
             "flight_date": "2026-04-19",
@@ -2488,11 +2476,11 @@
                 "iata": "BEG",
                 "icao": "LYBE",
                 "terminal": "2",
-                "gate": "A08",
+                "gate": "A09",
                 "baggage": null,
                 "scheduled": "2026-04-19T19:25:00+00:00",
                 "delay": 11,
-                "estimated": "2026-04-19T19:14:00+00:00",
+                "estimated": "2026-04-19T19:16:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -2509,25 +2497,16 @@
                 "codeshared": null
             },
             "aircraft": {
-                "registration": "TC-OHE",
-                "iata": "B38M",
-                "icao": "B38M",
+                "registration": null,
+                "iata": null,
+                "icao": null,
                 "icao24": "4BBD05"
             },
-            "live": {
-                "updated": "2026-04-19T16:29:51+00:00",
-                "latitude": 41.4511,
-                "longitude": 23.4242,
-                "altitude": 10972.8,
-                "direction": 333.81,
-                "speed_horizontal": 759.528,
-                "speed_vertical": 0,
-                "is_ground": false
-            }
+            "live": null
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -2549,10 +2528,10 @@
                 "icao": "LTFJ",
                 "terminal": null,
                 "gate": null,
-                "baggage": null,
+                "baggage": "5",
                 "scheduled": "2026-04-19T19:40:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T19:11:00+00:00",
+                "delay": 3,
+                "estimated": "2026-04-19T19:16:00+00:00",
                 "actual": "2026-04-19T19:13:00+00:00",
                 "estimated_runway": "2026-04-19T19:13:00+00:00",
                 "actual_runway": "2026-04-19T19:13:00+00:00"
@@ -2569,16 +2548,16 @@
                 "codeshared": null
             },
             "aircraft": {
-                "registration": "TC-NCR",
-                "iata": "A20N",
-                "icao": "A20N",
+                "registration": null,
+                "iata": null,
+                "icao": null,
                 "icao24": "4BB872"
             },
             "live": null
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -2600,10 +2579,10 @@
                 "icao": "LTFJ",
                 "terminal": null,
                 "gate": null,
-                "baggage": null,
+                "baggage": "5",
                 "scheduled": "2026-04-19T19:40:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T19:11:00+00:00",
+                "delay": 3,
+                "estimated": "2026-04-19T19:16:00+00:00",
                 "actual": "2026-04-19T19:13:00+00:00",
                 "estimated_runway": "2026-04-19T19:13:00+00:00",
                 "actual_runway": "2026-04-19T19:13:00+00:00"
@@ -2678,21 +2657,12 @@
                 "codeshared": null
             },
             "aircraft": {
-                "registration": "TC-NCC",
-                "iata": "A20N",
-                "icao": "A20N",
+                "registration": null,
+                "iata": null,
+                "icao": null,
                 "icao24": "4BB863"
             },
-            "live": {
-                "updated": "2026-04-19T16:23:46+00:00",
-                "latitude": 41.2708,
-                "longitude": 28.7525,
-                "altitude": 0,
-                "direction": 174,
-                "speed_horizontal": 22.224,
-                "speed_vertical": 0,
-                "is_ground": true
-            }
+            "live": null
         },
         {
             "flight_date": "2026-04-19",
@@ -2716,12 +2686,12 @@
                 "timezone": "Europe/Zurich",
                 "iata": "ZRH",
                 "icao": "LSZH",
-                "terminal": "1",
+                "terminal": null,
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T20:00:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T19:42:00+00:00",
+                "delay": 5,
+                "estimated": "2026-04-19T19:40:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -2738,21 +2708,12 @@
                 "codeshared": null
             },
             "aircraft": {
-                "registration": "TC-SOA",
-                "iata": "B738",
-                "icao": "B738",
+                "registration": null,
+                "iata": null,
+                "icao": null,
                 "icao24": "4BCDE1"
             },
-            "live": {
-                "updated": "2026-04-19T16:30:29+00:00",
-                "latitude": 44.7033,
-                "longitude": 17.2635,
-                "altitude": 11582.4,
-                "direction": 309,
-                "speed_horizontal": 761.172,
-                "speed_vertical": 0,
-                "is_ground": false
-            }
+            "live": null
         },
         {
             "flight_date": "2026-04-19",
@@ -2776,12 +2737,12 @@
                 "timezone": "Europe/Zurich",
                 "iata": "ZRH",
                 "icao": "LSZH",
-                "terminal": "1",
+                "terminal": null,
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T20:00:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T19:42:00+00:00",
+                "delay": 5,
+                "estimated": "2026-04-19T19:40:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -3190,21 +3151,12 @@
                 "codeshared": null
             },
             "aircraft": {
-                "registration": "TC-NBR",
-                "iata": "A20N",
-                "icao": "A20N",
+                "registration": null,
+                "iata": null,
+                "icao": null,
                 "icao24": "4BB852"
             },
-            "live": {
-                "updated": "2026-04-19T16:30:27+00:00",
-                "latitude": 50.4787,
-                "longitude": 7.1672,
-                "altitude": 11582.4,
-                "direction": 292,
-                "speed_horizontal": 757.468,
-                "speed_vertical": 0,
-                "is_ground": false
-            }
+            "live": null
         },
         {
             "flight_date": "2026-04-19",
@@ -3230,10 +3182,10 @@
                 "icao": "EHAM",
                 "terminal": null,
                 "gate": "G4",
-                "baggage": "22",
+                "baggage": null,
                 "scheduled": "2026-04-19T18:55:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T18:55:00+00:00",
+                "delay": 26,
+                "estimated": "2026-04-19T18:53:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -3250,21 +3202,12 @@
                 "codeshared": null
             },
             "aircraft": {
-                "registration": "TC-SLD",
-                "iata": "B38M",
-                "icao": "B38M",
+                "registration": null,
+                "iata": null,
+                "icao": null,
                 "icao24": "4BCD84"
             },
-            "live": {
-                "updated": "2026-04-19T16:30:26+00:00",
-                "latitude": 51.9274,
-                "longitude": 7.9911,
-                "altitude": 9997.44,
-                "direction": 295,
-                "speed_horizontal": 751.912,
-                "speed_vertical": 0,
-                "is_ground": false
-            }
+            "live": null
         },
         {
             "flight_date": "2026-04-19",
@@ -3421,7 +3364,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": null,
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -3445,8 +3388,8 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T17:45:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T17:34:00+00:00",
+                "delay": 1,
+                "estimated": "2026-04-19T17:30:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -3472,7 +3415,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -3480,7 +3423,7 @@
                 "icao": "LTBJ",
                 "terminal": "I",
                 "gate": "30",
-                "delay": 2,
+                "delay": 4,
                 "scheduled": "2026-04-19T15:40:00+00:00",
                 "estimated": "2026-04-19T15:40:00+00:00",
                 "actual": "2026-04-19T15:56:00+00:00",
@@ -3496,11 +3439,11 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T17:05:00+00:00",
-                "delay": 2,
-                "estimated": "2026-04-19T16:58:00+00:00",
-                "actual": "2026-04-19T17:07:00+00:00",
-                "estimated_runway": "2026-04-19T17:07:00+00:00",
-                "actual_runway": "2026-04-19T17:07:00+00:00"
+                "delay": 16,
+                "estimated": "2026-04-19T17:09:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
             },
             "airline": {
                 "name": "SunExpress",
@@ -3523,7 +3466,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -3543,15 +3486,15 @@
                 "timezone": "Europe/Berlin",
                 "iata": "DUS",
                 "icao": "EDDL",
-                "terminal": "2",
+                "terminal": null,
                 "gate": "C45",
-                "baggage": "19",
+                "baggage": null,
                 "scheduled": "2026-04-19T17:25:00+00:00",
-                "delay": null,
+                "delay": 8,
                 "estimated": "2026-04-19T17:15:00+00:00",
-                "actual": "2026-04-19T17:16:00+00:00",
-                "estimated_runway": "2026-04-19T17:16:00+00:00",
-                "actual_runway": "2026-04-19T17:16:00+00:00"
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
             },
             "airline": {
                 "name": "Pegasus",
@@ -3741,7 +3684,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -3763,10 +3706,10 @@
                 "icao": "LTFJ",
                 "terminal": null,
                 "gate": null,
-                "baggage": "7",
+                "baggage": null,
                 "scheduled": "2026-04-19T15:40:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T15:15:00+00:00",
+                "delay": 2,
+                "estimated": "2026-04-19T15:12:00+00:00",
                 "actual": "2026-04-19T15:16:00+00:00",
                 "estimated_runway": "2026-04-19T15:16:00+00:00",
                 "actual_runway": "2026-04-19T15:16:00+00:00"
@@ -3792,7 +3735,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -3814,10 +3757,10 @@
                 "icao": "LTFJ",
                 "terminal": null,
                 "gate": null,
-                "baggage": "7",
+                "baggage": null,
                 "scheduled": "2026-04-19T15:40:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T15:15:00+00:00",
+                "delay": 2,
+                "estimated": "2026-04-19T15:12:00+00:00",
                 "actual": "2026-04-19T15:16:00+00:00",
                 "estimated_runway": "2026-04-19T15:16:00+00:00",
                 "actual_runway": "2026-04-19T15:16:00+00:00"
@@ -3850,7 +3793,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -3872,10 +3815,10 @@
                 "icao": "LTFJ",
                 "terminal": null,
                 "gate": null,
-                "baggage": "7",
+                "baggage": null,
                 "scheduled": "2026-04-19T15:40:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T15:15:00+00:00",
+                "delay": 2,
+                "estimated": "2026-04-19T15:12:00+00:00",
                 "actual": "2026-04-19T15:16:00+00:00",
                 "estimated_runway": "2026-04-19T15:16:00+00:00",
                 "actual_runway": "2026-04-19T15:16:00+00:00"
@@ -3908,7 +3851,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -3932,11 +3875,11 @@
                 "gate": null,
                 "baggage": "22",
                 "scheduled": "2026-04-19T15:25:00+00:00",
-                "delay": null,
+                "delay": 9,
                 "estimated": "2026-04-19T15:10:00+00:00",
-                "actual": "2026-04-19T15:12:00+00:00",
-                "estimated_runway": "2026-04-19T15:12:00+00:00",
-                "actual_runway": "2026-04-19T15:12:00+00:00"
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
             },
             "airline": {
                 "name": "AJet",
@@ -3959,7 +3902,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -3983,7 +3926,7 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T15:10:00+00:00",
-                "delay": null,
+                "delay": 10,
                 "estimated": null,
                 "actual": null,
                 "estimated_runway": null,
@@ -4010,7 +3953,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -4034,11 +3977,11 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T15:15:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T14:55:00+00:00",
-                "actual": "2026-04-19T14:55:00+00:00",
-                "estimated_runway": "2026-04-19T14:55:00+00:00",
-                "actual_runway": "2026-04-19T14:55:00+00:00"
+                "delay": 4,
+                "estimated": "2026-04-19T14:53:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
             },
             "airline": {
                 "name": "AJet",
@@ -4061,7 +4004,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "active",
+            "flight_status": "landed",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -4069,12 +4012,12 @@
                 "icao": "LTBJ",
                 "terminal": "D",
                 "gate": "235",
-                "delay": null,
+                "delay": 16,
                 "scheduled": "2026-04-19T12:55:00+00:00",
                 "estimated": "2026-04-19T12:55:00+00:00",
-                "actual": "2026-04-19T13:40:00+00:00",
-                "estimated_runway": "2026-04-19T13:40:00+00:00",
-                "actual_runway": "2026-04-19T13:40:00+00:00"
+                "actual": "2026-04-19T13:43:00+00:00",
+                "estimated_runway": "2026-04-19T13:43:00+00:00",
+                "actual_runway": "2026-04-19T13:43:00+00:00"
             },
             "arrival": {
                 "airport": "Istanbul Airport",
@@ -4085,11 +4028,11 @@
                 "gate": null,
                 "baggage": "4B",
                 "scheduled": "2026-04-19T14:20:00+00:00",
-                "delay": 45,
-                "estimated": null,
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "delay": 16,
+                "estimated": "2026-04-19T14:36:00+00:00",
+                "actual": "2026-04-19T14:36:00+00:00",
+                "estimated_runway": "2026-04-19T14:36:00+00:00",
+                "actual_runway": "2026-04-19T14:36:00+00:00"
             },
             "airline": {
                 "name": "Turkish Airlines",
@@ -4170,7 +4113,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "active",
+            "flight_status": "landed",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -4178,12 +4121,12 @@
                 "icao": "LTBJ",
                 "terminal": "D",
                 "gate": "235",
-                "delay": null,
+                "delay": 16,
                 "scheduled": "2026-04-19T12:55:00+00:00",
                 "estimated": "2026-04-19T12:55:00+00:00",
-                "actual": "2026-04-19T13:40:00+00:00",
-                "estimated_runway": "2026-04-19T13:40:00+00:00",
-                "actual_runway": "2026-04-19T13:40:00+00:00"
+                "actual": "2026-04-19T13:43:00+00:00",
+                "estimated_runway": "2026-04-19T13:43:00+00:00",
+                "actual_runway": "2026-04-19T13:43:00+00:00"
             },
             "arrival": {
                 "airport": "Istanbul Airport",
@@ -4194,11 +4137,11 @@
                 "gate": null,
                 "baggage": "4B",
                 "scheduled": "2026-04-19T14:20:00+00:00",
-                "delay": 45,
-                "estimated": null,
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "delay": 16,
+                "estimated": "2026-04-19T14:36:00+00:00",
+                "actual": "2026-04-19T14:36:00+00:00",
+                "estimated_runway": "2026-04-19T14:36:00+00:00",
+                "actual_runway": "2026-04-19T14:36:00+00:00"
             },
             "airline": {
                 "name": "Thai Airways",
@@ -4228,7 +4171,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "active",
+            "flight_status": "landed",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -4236,12 +4179,12 @@
                 "icao": "LTBJ",
                 "terminal": "D",
                 "gate": "235",
-                "delay": null,
+                "delay": 16,
                 "scheduled": "2026-04-19T12:55:00+00:00",
                 "estimated": "2026-04-19T12:55:00+00:00",
-                "actual": "2026-04-19T13:40:00+00:00",
-                "estimated_runway": "2026-04-19T13:40:00+00:00",
-                "actual_runway": "2026-04-19T13:40:00+00:00"
+                "actual": "2026-04-19T13:43:00+00:00",
+                "estimated_runway": "2026-04-19T13:43:00+00:00",
+                "actual_runway": "2026-04-19T13:43:00+00:00"
             },
             "arrival": {
                 "airport": "Istanbul Airport",
@@ -4252,11 +4195,11 @@
                 "gate": null,
                 "baggage": "4B",
                 "scheduled": "2026-04-19T14:20:00+00:00",
-                "delay": 45,
-                "estimated": null,
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "delay": 16,
+                "estimated": "2026-04-19T14:36:00+00:00",
+                "actual": "2026-04-19T14:36:00+00:00",
+                "estimated_runway": "2026-04-19T14:36:00+00:00",
+                "actual_runway": "2026-04-19T14:36:00+00:00"
             },
             "airline": {
                 "name": "Asiana Airlines",
@@ -4286,7 +4229,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "active",
+            "flight_status": "landed",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -4294,12 +4237,12 @@
                 "icao": "LTBJ",
                 "terminal": "D",
                 "gate": "235",
-                "delay": null,
+                "delay": 16,
                 "scheduled": "2026-04-19T12:55:00+00:00",
                 "estimated": "2026-04-19T12:55:00+00:00",
-                "actual": "2026-04-19T13:40:00+00:00",
-                "estimated_runway": "2026-04-19T13:40:00+00:00",
-                "actual_runway": "2026-04-19T13:40:00+00:00"
+                "actual": "2026-04-19T13:43:00+00:00",
+                "estimated_runway": "2026-04-19T13:43:00+00:00",
+                "actual_runway": "2026-04-19T13:43:00+00:00"
             },
             "arrival": {
                 "airport": "Istanbul Airport",
@@ -4310,11 +4253,11 @@
                 "gate": null,
                 "baggage": "4B",
                 "scheduled": "2026-04-19T14:20:00+00:00",
-                "delay": 45,
-                "estimated": null,
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "delay": 16,
+                "estimated": "2026-04-19T14:36:00+00:00",
+                "actual": "2026-04-19T14:36:00+00:00",
+                "estimated_runway": "2026-04-19T14:36:00+00:00",
+                "actual_runway": "2026-04-19T14:36:00+00:00"
             },
             "airline": {
                 "name": "AirSERBIA",
@@ -4344,7 +4287,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -4368,11 +4311,11 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T16:50:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T16:36:00+00:00",
-                "actual": "2026-04-19T16:34:00+00:00",
-                "estimated_runway": "2026-04-19T16:34:00+00:00",
-                "actual_runway": "2026-04-19T16:34:00+00:00"
+                "delay": 12,
+                "estimated": "2026-04-19T16:35:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
             },
             "airline": {
                 "name": "Azerbaijan Airlines",
@@ -4395,7 +4338,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -4419,11 +4362,11 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T16:50:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T16:36:00+00:00",
-                "actual": "2026-04-19T16:34:00+00:00",
-                "estimated_runway": "2026-04-19T16:34:00+00:00",
-                "actual_runway": "2026-04-19T16:34:00+00:00"
+                "delay": 12,
+                "estimated": "2026-04-19T16:35:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
             },
             "airline": {
                 "name": "Turkish Airlines",
@@ -4504,7 +4447,7 @@
         },
         {
             "flight_date": "2026-04-19",
-            "flight_status": "landed",
+            "flight_status": "active",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -4528,11 +4471,11 @@
                 "gate": null,
                 "baggage": null,
                 "scheduled": "2026-04-19T14:00:00+00:00",
-                "delay": null,
-                "estimated": "2026-04-19T13:53:00+00:00",
-                "actual": "2026-04-19T13:52:00+00:00",
-                "estimated_runway": "2026-04-19T13:52:00+00:00",
-                "actual_runway": "2026-04-19T13:52:00+00:00"
+                "delay": 8,
+                "estimated": "2026-04-19T13:52:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
             },
             "airline": {
                 "name": "Pegasus",
@@ -4895,7 +4838,7 @@
                 "timezone": "Europe/Istanbul",
                 "iata": "IST",
                 "icao": "LTFM",
-                "terminal": "1",
+                "terminal": null,
                 "gate": null,
                 "baggage": "5B",
                 "scheduled": "2026-04-19T13:20:00+00:00",
@@ -4946,7 +4889,7 @@
                 "timezone": "Europe/Istanbul",
                 "iata": "IST",
                 "icao": "LTFM",
-                "terminal": "1",
+                "terminal": null,
                 "gate": null,
                 "baggage": "5B",
                 "scheduled": "2026-04-19T13:20:00+00:00",
@@ -5004,7 +4947,7 @@
                 "timezone": "Europe/Istanbul",
                 "iata": "IST",
                 "icao": "LTFM",
-                "terminal": "1",
+                "terminal": null,
                 "gate": null,
                 "baggage": "5B",
                 "scheduled": "2026-04-19T13:20:00+00:00",
@@ -5062,7 +5005,7 @@
                 "timezone": "Europe/Istanbul",
                 "iata": "IST",
                 "icao": "LTFM",
-                "terminal": "1",
+                "terminal": null,
                 "gate": null,
                 "baggage": "5B",
                 "scheduled": "2026-04-19T13:20:00+00:00",
