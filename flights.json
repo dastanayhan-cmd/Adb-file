@@ -3,9 +3,55 @@
         "limit": 100,
         "offset": 0,
         "count": 100,
-        "total": 175
+        "total": 176
     },
     "data": [
+        {
+            "flight_date": "2026-05-04",
+            "flight_status": "active",
+            "departure": {
+                "airport": "Adnan Menderes Airport",
+                "timezone": "Europe/Istanbul",
+                "iata": "ADB",
+                "icao": "LTBJ",
+                "terminal": "I",
+                "gate": "32",
+                "delay": null,
+                "scheduled": "2026-05-04T02:55:00+00:00",
+                "estimated": "2026-05-04T02:55:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "arrival": {
+                "airport": "Cologne/bonn",
+                "timezone": "Europe/Berlin",
+                "iata": "CGN",
+                "icao": "EDDK",
+                "terminal": "2",
+                "gate": null,
+                "baggage": null,
+                "scheduled": "2026-05-04T05:20:00+00:00",
+                "delay": null,
+                "estimated": null,
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "airline": {
+                "name": "SunExpress",
+                "iata": "XQ",
+                "icao": "SXS"
+            },
+            "flight": {
+                "number": "902",
+                "iata": "XQ902",
+                "icao": "SXS902",
+                "codeshared": null
+            },
+            "aircraft": null,
+            "live": null
+        },
         {
             "flight_date": "2026-05-03",
             "flight_status": "actual",
@@ -351,7 +397,7 @@
         },
         {
             "flight_date": "2026-05-03",
-            "flight_status": "active",
+            "flight_status": "actual",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -1048,7 +1094,7 @@
                 "baggage": null,
                 "scheduled": "2026-05-04T01:30:00+00:00",
                 "delay": 1,
-                "estimated": "2026-05-04T01:14:00+00:00",
+                "estimated": "2026-05-04T01:16:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -1064,8 +1110,22 @@
                 "icao": "EIN799",
                 "codeshared": null
             },
-            "aircraft": null,
-            "live": null
+            "aircraft": {
+                "registration": "EI-DVG",
+                "iata": "A320",
+                "icao": "A320",
+                "icao24": "4CA63A"
+            },
+            "live": {
+                "updated": "2026-05-03T23:44:59+00:00",
+                "latitude": 52.4777,
+                "longitude": -3.8231,
+                "altitude": 10972.8,
+                "direction": 293.67,
+                "speed_horizontal": 835.092,
+                "speed_vertical": 0,
+                "is_ground": false
+            }
         },
         {
             "flight_date": "2026-05-03",
@@ -3261,7 +3321,7 @@
                 "timezone": "Europe/Amsterdam",
                 "iata": "AMS",
                 "icao": "EHAM",
-                "terminal": "A",
+                "terminal": null,
                 "gate": "G6",
                 "baggage": null,
                 "scheduled": "2026-05-03T18:55:00+00:00",
@@ -4738,59 +4798,6 @@
                 "iata": "XQ932",
                 "icao": "SXS932",
                 "codeshared": null
-            },
-            "aircraft": null,
-            "live": null
-        },
-        {
-            "flight_date": "2026-05-03",
-            "flight_status": "actual",
-            "departure": {
-                "airport": "Adnan Menderes Airport",
-                "timezone": "Europe/Istanbul",
-                "iata": "ADB",
-                "icao": "LTBJ",
-                "terminal": "I",
-                "gate": "103",
-                "delay": null,
-                "scheduled": "2026-05-03T04:45:00+00:00",
-                "estimated": "2026-05-03T04:45:00+00:00",
-                "actual": "2026-05-03T04:40:00+00:00",
-                "estimated_runway": "2026-05-03T04:40:00+00:00",
-                "actual_runway": "2026-05-03T04:40:00+00:00"
-            },
-            "arrival": {
-                "airport": "Brussels Airport",
-                "timezone": "Europe/Brussels",
-                "iata": "BRU",
-                "icao": "EBBR",
-                "terminal": "1",
-                "gate": null,
-                "baggage": null,
-                "scheduled": "2026-05-03T07:25:00+00:00",
-                "delay": null,
-                "estimated": "2026-05-03T07:08:00+00:00",
-                "actual": "2026-05-03T07:08:00+00:00",
-                "estimated_runway": "2026-05-03T07:08:00+00:00",
-                "actual_runway": "2026-05-03T07:08:00+00:00"
-            },
-            "airline": {
-                "name": null,
-                "iata": "SN",
-                "icao": "SN"
-            },
-            "flight": {
-                "number": "4250",
-                "iata": "SN4250",
-                "icao": "SN4250",
-                "codeshared": {
-                    "airline_name": "sunexpress",
-                    "airline_iata": "xq",
-                    "airline_icao": "sxs",
-                    "flight_number": "932",
-                    "flight_iata": "xq932",
-                    "flight_icao": "sxs932"
-                }
             },
             "aircraft": null,
             "live": null
