@@ -3,7 +3,7 @@
         "limit": 100,
         "offset": 0,
         "count": 100,
-        "total": 346
+        "total": 170
     },
     "data": [
         {
@@ -240,12 +240,12 @@
                 "icao24": "407862"
             },
             "live": {
-                "updated": "2026-05-04T22:55:58+00:00",
-                "latitude": 49.039,
-                "longitude": 11.235,
-                "altitude": 11107,
-                "direction": 311.3,
-                "speed_horizontal": 801,
+                "updated": "2026-05-04T23:36:09+00:00",
+                "latitude": 51.2471,
+                "longitude": 6.9434,
+                "altitude": 11023,
+                "direction": 307.9,
+                "speed_horizontal": 792,
                 "speed_vertical": 0,
                 "is_ground": false
             }
@@ -344,7 +344,7 @@
         },
         {
             "flight_date": "2026-05-04",
-            "flight_status": "active",
+            "flight_status": "actual",
             "departure": {
                 "airport": "Adnan Menderes Airport",
                 "timezone": "Europe/Istanbul",
@@ -369,7 +369,7 @@
                 "baggage": null,
                 "scheduled": "2026-05-05T01:15:00+00:00",
                 "delay": null,
-                "estimated": "2026-05-05T00:55:00+00:00",
+                "estimated": "2026-05-05T00:57:00+00:00",
                 "actual": null,
                 "estimated_runway": null,
                 "actual_runway": null
@@ -385,22 +385,8 @@
                 "icao": "PGT5309",
                 "codeshared": null
             },
-            "aircraft": {
-                "registration": "TC-NCB",
-                "iata": "A320",
-                "icao": "A320",
-                "icao24": "4BB862"
-            },
-            "live": {
-                "updated": "2026-05-04T22:59:58+00:00",
-                "latitude": 50.8617,
-                "longitude": 7.1496,
-                "altitude": 0,
-                "direction": 317.81,
-                "speed_horizontal": 33.336,
-                "speed_vertical": 0,
-                "is_ground": true
-            }
+            "aircraft": null,
+            "live": null
         },
         {
             "flight_date": "2026-05-04",
@@ -1271,7 +1257,7 @@
                 "baggage": null,
                 "scheduled": "2026-05-04T23:30:00+00:00",
                 "delay": null,
-                "estimated": null,
+                "estimated": "2026-05-04T23:31:00+00:00",
                 "actual": "2026-05-04T23:28:00+00:00",
                 "estimated_runway": "2026-05-04T23:28:00+00:00",
                 "actual_runway": "2026-05-04T23:28:00+00:00"
@@ -1287,22 +1273,8 @@
                 "icao": "EXS1866",
                 "codeshared": null
             },
-            "aircraft": {
-                "registration": "XXB",
-                "iata": "B738",
-                "icao": "B738",
-                "icao24": "4078FE"
-            },
-            "live": {
-                "updated": "2026-05-04T22:36:10+00:00",
-                "latitude": 51.3793,
-                "longitude": -2.8035,
-                "altitude": 460,
-                "direction": 88,
-                "speed_horizontal": 229,
-                "speed_vertical": 0,
-                "is_ground": false
-            }
+            "aircraft": null,
+            "live": null
         },
         {
             "flight_date": "2026-05-04",
